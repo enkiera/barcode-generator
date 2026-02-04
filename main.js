@@ -7,10 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const barHeight = document.getElementById("barHeight");
     const heightVal = document.getElementById("heightVal");
     const heightGroup = document.getElementById("heightGroup");
-    const scale = document.getElementById("scale");
-    const scaleVal = document.getElementById("scaleVal");
     const includeText = document.getElementById("includeText");
-    const whiteBg = document.getElementById("whiteBg");
+    const bgColor = document.getElementById("bgColor");
+    const barColor = document.getElementById("barColor");
+    const bgGroup = document.getElementById("bgGroup");
+    const barColorGroup = document.getElementById("barColorGroup");
     const downloadBtn = document.getElementById("downloadBtn");
     const errorMsg = document.getElementById("error-msg");
 
@@ -26,13 +27,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateVisibility = () => {
         const type = barcodeType.value;
         if (is2D(type)) {
+            // 2D: Enable Colors, Disable Height
             heightGroup.style.opacity = "0.5";
             heightGroup.style.pointerEvents = "none";
             barHeight.disabled = true;
+
+            bgGroup.style.opacity = "1";
+            bgGroup.style.pointerEvents = "auto";
+            bgColor.disabled = false;
+
+            barColorGroup.style.opacity = "1";
+            barColorGroup.style.pointerEvents = "auto";
+            barColor.disabled = false;
         } else {
+            // 1D: Enable Height, Disable Colors
             heightGroup.style.opacity = "1";
             heightGroup.style.pointerEvents = "auto";
             barHeight.disabled = false;
+
+            bgGroup.style.opacity = "0.5";
+            bgGroup.style.pointerEvents = "none";
+            bgColor.disabled = true;
+
+            barColorGroup.style.opacity = "0.5";
+            barColorGroup.style.pointerEvents = "none";
+            barColor.disabled = true;
         }
     };
 
@@ -42,7 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const scaleValue = parseInt(scale.value);
         const heightValue = parseInt(barHeight.value);
         const includeTextValue = includeText.checked;
-        const useWhiteBg = whiteBg.checked;
+        let bgColorHex = 'FFFFFF';
+        let barColorHex = '000000';
+
+        if (is2D(type)) {
+            bgColorHex = bgColor.value.substring(1); // Remove #
+            barColorHex = barColor.value.substring(1); // Remove #
+        }
 
         if (!text) {
             // Optional: clear canvas or show empty state
@@ -64,11 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 includetext: includeTextValue, // Show human-readable text
                 textxalign: 'center', // Always good for 1D
                 padding: 10, // Add margin around the barcode
+                backgroundcolor: bgColorHex,
+                barcolor: barColorHex
             };
-
-            if (useWhiteBg) {
-                options.backgroundcolor = 'FFFFFF';
-            }
 
             // Height handling
             if (!is2D(type)) {
@@ -100,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Event Listeners
-    const inputs = [barcodeText, barcodeType, barHeight, scale, includeText, whiteBg];
+    const inputs = [barcodeText, barcodeType, barHeight, scale, includeText, bgColor, barColor];
 
     inputs.forEach(input => {
         input.addEventListener('input', () => {

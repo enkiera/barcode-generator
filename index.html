@@ -59,17 +59,22 @@
 
                     <div class="input-group">
                         <label for="scale">Scale <span id="scaleVal" class="val-display">2</span>x</label>
-                        <input type="range" id="scale" min="1" max="5" step="1" value="2">
+                        <input type="range" id="scale" min="1" max="10" step="1" value="2">
+                    </div>
+
+                    <div class="input-group" id="bgGroup">
+                        <label for="bgColor">Background</label>
+                        <input type="color" id="bgColor" value="#ffffff">
+                    </div>
+
+                    <div class="input-group" id="barColorGroup">
+                        <label for="barColor">Bar Color</label>
+                        <input type="color" id="barColor" value="#000000">
                     </div>
 
                     <div class="checkbox-group">
                         <input type="checkbox" id="includeText" checked>
                         <label for="includeText">Text</label>
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="whiteBg">
-                        <label for="whiteBg">White Bg</label>
                     </div>
                 </div>
             </div>
