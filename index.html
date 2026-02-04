@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Barcode Generator</title>
+    <meta name="description" content="A lightweight, premium barcode generator app.">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- bwip-js CDN -->
+    <script src="https://unpkg.com/bwip-js@3.0.4/dist/bwip-js-min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Barcode<span class="highlight">Gen</span></h1>
+            <p>Create generic barcodes in seconds.</p>
+        </header>
+
+        <main class="glass-panel">
+            <div class="controls-section">
+                <div class="input-group">
+                    <label for="barcodeText">Content</label>
+                    <input type="text" id="barcodeText" placeholder="Enter text or numbers..." value="1234567890">
+                </div>
+
+                <div class="input-group">
+                    <label for="barcodeType">Barcode Type</label>
+                    <select id="barcodeType">
+                        <!-- 1D Barcodes -->
+                        <optgroup label="1D Barcodes">
+                            <option value="code128" selected>Code 128</option>
+                            <option value="ean13">EAN-13</option>
+                            <option value="upca">UPC-A</option>
+                            <option value="code39">Code 39</option>
+                            <option value="itf14">ITF-14</option>
+                        </optgroup>
+                        <!-- 2D Barcodes -->
+                        <optgroup label="2D Barcodes">
+                            <option value="qrcode">QR Code</option>
+                            <option value="datamatrix">Data Matrix</option>
+                            <option value="pdf417">PDF417</option>
+                            <option value="azteccode">Aztec Code</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="input-group" id="heightGroup">
+                        <label for="barHeight">Height <span id="heightVal" class="val-display">20</span>%</label>
+                        <input type="range" id="barHeight" min="10" max="150" value="20">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="scale">Scale <span id="scaleVal" class="val-display">2</span>x</label>
+                        <input type="range" id="scale" min="1" max="5" step="1" value="2">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="includeText" checked>
+                        <label for="includeText">Text</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="whiteBg">
+                        <label for="whiteBg">White Bg</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-section">
+                <div class="canvas-wrapper">
+                    <canvas id="barcodeCanvas"></canvas>
+                    <div id="loading" class="hidden">Generating...</div>
+                    <div id="error-msg" class="hidden"></div>
+                </div>
+                <button id="downloadBtn" class="primary-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    Download PNG
+                </button>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <p>Powered by bwip-js</p>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
